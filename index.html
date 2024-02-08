@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box" onmouseleave="endAnimation()">
+        <div class="ball ball-1" onmouseover="startAnimation()"></div>
+        <div class="ball ball-2"></div>
+      </div>
+    </div>
+  </body>
+</html>
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .box {
+    background-image: url("https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Colorful-Circle-Simple-Background-Image-1.jpg");
+    width: 800px;
+    height: 600px;
+    position: relative;
+    border-radius: 15px;
+  }
+
+  .ball {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .ball-1 {
+    background-color: lightcoral;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+
+  .ball-2 {
+    background-color: lightgreen;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+</style>
+
+<script>
+  function startAnimation() {
+    console.log("innergfg");
+    let ballEle = document.querySelector(".ball-1");
+    let poeX = 0;
+    let poeY = 0;
+    var anim = setInterval(animate, 5);
+    function animate() {
+      if (poeX == 0 && poeY == 450) {
+        clearInterval(anim);
+      } else {
+        if (poeX < 650 && poeY == 0) {
+          poeX++;
+        } else if (poeX == 650 && poeY < 450) {
+          poeY++;
+        } else if (poeX >= 0 && poeY == 450) {
+          poeX--;
+        }
+        ballEle.style.left = poeX + "px";
+        ballEle.style.top = poeY + "px";
+      }
+    }
+  }
+  function endAnimation() {
+    console.log("outergfg");
+    let ballEle = document.querySelector(".ball-1");
+    let poeX = 0;
+    let poeY = 450;
+    var anim = setInterval(animate, 1);
+    function animate() {
+      if (poeX == 0 && poeY == 0) {
+        clearInterval(anim);
+      } else {
+        if (poeX == 650 && poeY > 0) {
+          poeY--;
+        } else if (poeX > 0 && poeY == 0) {
+          poeX--;
+        } else if (poeX == 0 && poeY < 450) {
+          poeY++;
+        } else if (poeX < 650 && poeY == 450) {
+          poeX++;
+        }
+        ballEle.style.left = poeX + "px";
+        ballEle.style.top = poeY + "px";
+      }
+    }
+  }
+</script>
